@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pythia Chat Copilot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Chat-First MVP</p>
+      <h1>Pythia Copilot</h1>
+      <p class="subtitle">Natural-language simulation design with proposed RunSpec diffs.</p>
+    </div>
+    <div class="chips">
+      <span id="backendChip" class="chip">Backend: Checking...</span>
+      <span id="sessionChip" class="chip">Session: --</span>
+      <a class="chip link-chip" href="/">Open Classic UI</a>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel chat-panel">
+      <h2>Chat</h2>
+      <div id="chatFeed" class="chat-feed"></div>
+      <div class="chat-controls">
+        <textarea id="chatInput" rows="3" placeholder="Ask for a run plan, process changes, energy scan, uncertainty setup, etc."></textarea>
+        <div class="row">
+          <button id="sendChat" type="button">Send</button>
+          <button id="newSession" class="ghost" type="button">New Session</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel side-panel">
+      <h2>Proposal</h2>
+      <div id="proposalSummary" class="summary">No proposal yet.</div>
+      <pre id="proposalDiff" class="code">No proposal yet.</pre>
+      <div class="row">
+        <button id="applyProposal" class="ghost" type="button" disabled>Apply Proposed Spec</button>
+        <button id="runProposed" type="button" disabled>Run Proposed</button>
+      </div>
+      <div class="row">
+        <button id="runWorking" class="ghost" type="button">Run Working Spec</button>
+        <button id="refreshState" class="ghost" type="button">Refresh State</button>
+      </div>
+
+      <h2>Working Spec</h2>
+      <pre id="workingPreview" class="code"></pre>
+
+      <h2>Run Result</h2>
+      <div id="runResult" class="summary">No run started yet.</div>
+
+      <h2>Recent Runs</h2>
+      <div id="recentRuns" class="history">No runs loaded.</div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

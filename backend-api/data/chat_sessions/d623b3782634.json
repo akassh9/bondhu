@@ -1,0 +1,90 @@
+{
+  "created_at": "2026-02-23T01:42:57.333094+00:00",
+  "last_run_id": "b37e25e0e304",
+  "llm_previous_response_id": "resp_0233bb604fc5d64600699bb0ab73cc8195bb935f8c24a11f54",
+  "messages": [
+    {
+      "at": "2026-02-23T01:43:12.715515+00:00",
+      "content": "Set up a 10,000-event pp run at 13 TeV for SoftQCD inelastic with fixed seed 8310, then propose the RunSpec and run it.",
+      "role": "user"
+    },
+    {
+      "at": "2026-02-23T01:43:12.715525+00:00",
+      "content": "Updated phase-space cut to allow fully inclusive SoftQCD inelastic production at 13\u00a0TeV with 10k events and fixed seed 8310.",
+      "proposal_summary": "Set pTHat^min to null for inclusive SoftQCD inelastic run at 13\u00a0TeV, 10k events, seed 8310.",
+      "role": "assistant",
+      "run_recommended": true
+    },
+    {
+      "at": "2026-02-23T01:43:17.353480+00:00",
+      "content": "Started run b37e25e0e304 from working spec.",
+      "role": "system"
+    }
+  ],
+  "proposed_spec": null,
+  "session_id": "d623b3782634",
+  "updated_at": "2026-02-23T01:43:17.353487+00:00",
+  "working_spec": {
+    "beam": {
+      "e_a": 6500.0,
+      "e_b": 6500.0,
+      "e_cm": 13000.0,
+      "frame_type": 1,
+      "id_a": 2212,
+      "id_b": 2212,
+      "lhef": null
+    },
+    "event_stages": {
+      "decay": true,
+      "fsr": true,
+      "hadron_all": true,
+      "hadronize": true,
+      "isr": true,
+      "mpi": true,
+      "process_level_all": true
+    },
+    "events": 10000,
+    "expert_overrides": [],
+    "jet_matching": {
+      "enabled": false,
+      "q_cut": 30.0
+    },
+    "merging": {
+      "enabled": false,
+      "n_jet_max": 2,
+      "process": "pp>jj",
+      "tms": 30.0
+    },
+    "name": null,
+    "pdf_photon": {
+      "beam_a2gamma": false,
+      "beam_b2gamma": false,
+      "lepton": false,
+      "p_set": 14,
+      "photon_parton_all": false,
+      "use_hard": false
+    },
+    "pdg_overrides": [],
+    "phase_space": {
+      "m_hat_max": null,
+      "m_hat_min": null,
+      "p_that_max": null,
+      "p_that_min": 20.0
+    },
+    "processes": [
+      "SoftQCD:inelastic"
+    ],
+    "schema_version": "1.0",
+    "seed": 8310,
+    "seed_enabled": true,
+    "shower_mpi_tune": {
+      "mpi_b_profile": 2,
+      "mpi_pt0_ref": 2.3,
+      "space_ptmax_match": 1,
+      "time_ptmax_match": 1,
+      "tune_ee": 7,
+      "tune_pp": 14
+    },
+    "times_allow_errors": 10
+  }
+}

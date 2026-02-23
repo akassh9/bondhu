@@ -1,0 +1,7 @@
+{
+  "attempted_events": 120,
+  "accepted_events": 120,
+  "failed_events": 0,
+  "abort_limit": 10,
+  "aborted_by_errors": false
+}

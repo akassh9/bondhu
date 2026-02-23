@@ -1,0 +1,22 @@
+{
+  "flags": [
+    "PYTHIA reported 46 error-stat messages.",
+    "High warning volume: 92 warning-stat messages."
+  ],
+  "inferred_intent": "Minimum-bias / underlying-event QCD study",
+  "key_stats": {
+    "acceptance": 1.0,
+    "accepted_events": 10000,
+    "attempted_events": 10000,
+    "error_messages": 46,
+    "failed_events": 0,
+    "warning_messages": 92
+  },
+  "suggestions": [
+    "Inspect top error categories in diagnostics before trusting physics conclusions.",
+    "Review warning categories; repeated shower or hadronization warnings can bias tails.",
+    "Compare at least two nearby seeds to confirm stability of key yields."
+  ],
+  "tldr": "Minimum-bias / underlying-event QCD study: attempted 10000 events, accepted 10000, failed 0. Viability assessment: caution.",
+  "viability": "caution"
+}

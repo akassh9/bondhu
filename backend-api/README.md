@@ -8,6 +8,7 @@ FastAPI backend for typed PYTHIA run orchestration.
 - Validation + guardrails (`app/policy.py`)
 - Deterministic compiler `RunSpec -> run.cmnd` (`app/compiler.py`)
 - Local queue + worker with persisted provenance (`app/run_service.py`, `app/store.py`)
+- Chat orchestration using OpenAI Responses API (`app/chat_service.py`)
 - Endpoints for validate/compile/create/enqueue/status/artifacts
 - Real execution using a tiny C++ runner (`runner/pythia_runner.cc`)
 
@@ -31,6 +32,9 @@ Each run folder contains:
 - `analysis_cutflow.csv` (auto-generated on success)
 - `analysis_histogram.csv` (auto-generated on success)
 - `analysis_report.md` (auto-generated on success)
+- `diagnostics.json` (parsed PYTHIA error/warning statistics)
+- `teammate_summary.json` (human-friendly viability summary + suggestions)
+- `llm_run_summary.json` (optional LLM TLDR if key/config available)
 
 ## Install and run
 
@@ -55,6 +59,25 @@ uvicorn app.main:app --app-dir backend-api --host 127.0.0.1 --port 8000
 - `GET /runs/{run_id}/status`
 - `GET /runs/{run_id}/artifacts`
 - `GET /runs/{run_id}/artifacts/{artifact_name}`
+- `POST /chat/sessions`
+- `GET /chat/sessions/{session_id}`
+- `POST /chat/sessions/{session_id}/message`
+- `POST /chat/sessions/{session_id}/apply`
+- `POST /chat/sessions/{session_id}/run`
+
+## LLM configuration
+
+Set these before starting the API:
+
+```bash
+export OPENAI_API_KEY=\"your_key_here\"
+export PYTHIA_LLM_MODEL=\"gpt-5-codex\"   # optional, default gpt-5-codex
+export PYTHIA_ENABLE_LLM_RUN_SUMMARY=\"1\"   # optional, default 1
+```
+
+System prompt source for chat orchestration:
+
+- `backend-api/prompts/chat_system.md`
 
 ## Schema export
 

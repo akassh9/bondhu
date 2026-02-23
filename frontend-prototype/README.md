@@ -14,6 +14,7 @@ python3 -m http.server 8765
 Then open:
 
 - http://localhost:8765
+- http://localhost:8765/chat/
 
 ## Connect to backend API
 
@@ -31,6 +32,8 @@ Then click `Approve Current Spec` and `Run on Backend` in the frontend to submit
 - Approval gate: form changes require explicit re-approval before execution
 - Run history panel: browse recent runs and load status/artifacts
 - Real run output: status polling + artifact links from backend
+- Chat-first page at `/chat/`: session-based LLM workflow, proposed spec apply, run-from-chat
+- Teammate run summary: backend parses PYTHIA logs and returns TLDR + viability flags + suggestions
 
 ## Included views
 

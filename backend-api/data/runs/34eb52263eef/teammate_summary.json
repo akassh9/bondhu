@@ -1,0 +1,19 @@
+{
+  "flags": [],
+  "inferred_intent": "Minimum-bias / underlying-event QCD study",
+  "key_stats": {
+    "acceptance": 1.0,
+    "accepted_events": 120,
+    "attempted_events": 120,
+    "error_messages": 0,
+    "failed_events": 0,
+    "warning_messages": 4
+  },
+  "suggestions": [
+    "Review warning categories; repeated shower or hadronization warnings can bias tails.",
+    "Run appears numerically stable; proceed to larger statistics or analysis plugins.",
+    "Compare at least two nearby seeds to confirm stability of key yields."
+  ],
+  "tldr": "Minimum-bias / underlying-event QCD study: attempted 120 events, accepted 120, failed 0. Viability assessment: good.",
+  "viability": "good"
+}

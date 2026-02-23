@@ -1,0 +1,15 @@
+{
+  "top_errors": [],
+  "top_warnings": [
+    {
+      "count": 3,
+      "message": "MultipartonInteractions::init: maximum increased"
+    },
+    {
+      "count": 1,
+      "message": "SimpleSpaceShower::pT2nextQCD: weight above unity"
+    }
+  ],
+  "total_error_messages": 0,
+  "total_warning_messages": 4
+}

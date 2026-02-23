@@ -423,6 +423,9 @@ function renderRunSummaryText(lines) {
 function renderRunSummaryWithArtifacts(runId, status, artifacts) {
   dom.runSummary.innerHTML = "";
 
+  const teammate = status.teammate_summary || null;
+  const llm = status.llm_run_summary || null;
+
   const summaryLines = [
     `Run ID: ${runId}`,
     `State: ${status.state}`,
@@ -440,6 +443,64 @@ function renderRunSummaryWithArtifacts(runId, status, artifacts) {
     row.textContent = line;
     dom.runSummary.appendChild(row);
   });
+
+  if (teammate) {
+    const spacer = document.createElement("div");
+    spacer.style.marginTop = "10px";
+    spacer.style.fontWeight = "600";
+    spacer.textContent = `Teammate TLDR (${teammate.viability || "unknown"}):`;
+    dom.runSummary.appendChild(spacer);
+
+    const tldr = document.createElement("div");
+    tldr.textContent = teammate.tldr || "No summary available.";
+    dom.runSummary.appendChild(tldr);
+
+    const intent = document.createElement("div");
+    intent.textContent = `Intent: ${teammate.inferred_intent || "N/A"}`;
+    dom.runSummary.appendChild(intent);
+
+    const flags = teammate.flags || [];
+    if (flags.length) {
+      const flagsHead = document.createElement("div");
+      flagsHead.style.marginTop = "6px";
+      flagsHead.style.fontWeight = "600";
+      flagsHead.textContent = "Flags:";
+      dom.runSummary.appendChild(flagsHead);
+
+      flags.forEach((flag) => {
+        const row = document.createElement("div");
+        row.textContent = `- ${flag}`;
+        dom.runSummary.appendChild(row);
+      });
+    }
+
+    const suggestions = teammate.suggestions || [];
+    if (suggestions.length) {
+      const sHead = document.createElement("div");
+      sHead.style.marginTop = "6px";
+      sHead.style.fontWeight = "600";
+      sHead.textContent = "Suggested next steps:";
+      dom.runSummary.appendChild(sHead);
+
+      suggestions.forEach((step) => {
+        const row = document.createElement("div");
+        row.textContent = `- ${step}`;
+        dom.runSummary.appendChild(row);
+      });
+    }
+  }
+
+  if (llm) {
+    const head = document.createElement("div");
+    head.style.marginTop = "8px";
+    head.style.fontWeight = "600";
+    head.textContent = "LLM TLDR:";
+    dom.runSummary.appendChild(head);
+
+    const line = document.createElement("div");
+    line.textContent = llm.tldr || "No LLM summary text.";
+    dom.runSummary.appendChild(line);
+  }
 
   if (!artifacts.length) return;
 

@@ -1,0 +1,64 @@
+{
+  "analysis": {
+    "acceptance_vs_attempted": 1.0,
+    "accepted_events": 120,
+    "artifacts": [
+      "analysis_yield_table.json",
+      "analysis_cutflow.csv",
+      "analysis_histogram.csv",
+      "analysis_report.md"
+    ],
+    "failed_events": 0,
+    "generated_at": "2026-02-23T01:57:53.991390+00:00",
+    "plugin": "basic_mvp_analysis"
+  },
+  "created_at": "2026-02-23T01:57:40.336221+00:00",
+  "diagnostics": {
+    "top_errors": [],
+    "top_warnings": [
+      {
+        "count": 3,
+        "message": "MultipartonInteractions::init: maximum increased"
+      },
+      {
+        "count": 1,
+        "message": "SimpleSpaceShower::pT2nextQCD: weight above unity"
+      }
+    ],
+    "total_error_messages": 0,
+    "total_warning_messages": 4
+  },
+  "error": null,
+  "event_summary": {
+    "abort_limit": 10,
+    "aborted_by_errors": false,
+    "accepted_events": 120,
+    "attempted_events": 120,
+    "failed_events": 0
+  },
+  "exit_code": 0,
+  "finished_at": "2026-02-23T01:57:53.990394+00:00",
+  "message": "Run completed",
+  "run_id": "34eb52263eef",
+  "state": "SUCCEEDED",
+  "teammate_summary": {
+    "flags": [],
+    "inferred_intent": "Minimum-bias / underlying-event QCD study",
+    "key_stats": {
+      "acceptance": 1.0,
+      "accepted_events": 120,
+      "attempted_events": 120,
+      "error_messages": 0,
+      "failed_events": 0,
+      "warning_messages": 4
+    },
+    "suggestions": [
+      "Review warning categories; repeated shower or hadronization warnings can bias tails.",
+      "Run appears numerically stable; proceed to larger statistics or analysis plugins.",
+      "Compare at least two nearby seeds to confirm stability of key yields."
+    ],
+    "tldr": "Minimum-bias / underlying-event QCD study: attempted 120 events, accepted 120, failed 0. Viability assessment: good.",
+    "viability": "good"
+  },
+  "updated_at": "2026-02-23T01:57:53.991463+00:00"
+}

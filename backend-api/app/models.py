@@ -223,3 +223,15 @@ class StatusResponse(BaseModel):
 class ArtifactResponse(BaseModel):
     name: str
     size_bytes: int
+
+
+class ChatCreateSessionRequest(BaseModel):
+    initial_spec: RunSpec | None = None
+
+
+class ChatMessageRequest(BaseModel):
+    message: str = Field(min_length=1, max_length=4000)
+
+
+class ChatRunRequest(BaseModel):
+    source: Literal["working", "proposed"] = "working"

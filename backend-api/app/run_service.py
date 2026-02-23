@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from .analysis import generate_basic_analysis
+from .diagnostics import build_teammate_summary, maybe_generate_llm_summary, parse_message_statistics
 from .store import RunStore
 
 
@@ -141,6 +142,24 @@ class RunService:
                 summary = None
             if summary is not None:
                 extra["event_summary"] = summary
+
+        diagnostics = parse_message_statistics(completed.stdout)
+        extra["diagnostics"] = diagnostics
+        self.store.write_json_artifact(run_id, "diagnostics.json", diagnostics)
+
+        teammate_summary = build_teammate_summary(
+            spec=spec,
+            event_summary=extra.get("event_summary"),
+            diagnostics=diagnostics,
+            exit_code=completed.returncode,
+        )
+        extra["teammate_summary"] = teammate_summary
+        self.store.write_json_artifact(run_id, "teammate_summary.json", teammate_summary)
+
+        llm_summary = maybe_generate_llm_summary(spec, teammate_summary, diagnostics)
+        if llm_summary is not None:
+            extra["llm_run_summary"] = llm_summary
+            self.store.write_json_artifact(run_id, "llm_run_summary.json", llm_summary)
 
         if status == "SUCCEEDED":
             try:
