@@ -1,0 +1,74 @@
+{
+  "beam": {
+    "e_a": 6500.0,
+    "e_b": 6500.0,
+    "e_cm": 13000.0,
+    "frame_type": 1,
+    "id_a": 2212,
+    "id_b": 2212,
+    "lhef": null
+  },
+  "event_stages": {
+    "decay": true,
+    "fsr": true,
+    "hadron_all": true,
+    "hadronize": true,
+    "isr": true,
+    "mpi": true,
+    "process_level_all": true
+  },
+  "events": 80,
+  "expert_overrides": [],
+  "jet_matching": {
+    "enabled": false,
+    "q_cut": 30.0
+  },
+  "merging": {
+    "enabled": false,
+    "n_jet_max": 2,
+    "process": "pp>jj",
+    "tms": 30.0
+  },
+  "name": null,
+  "pdf_photon": {
+    "beam_a2gamma": false,
+    "beam_b2gamma": false,
+    "lepton": false,
+    "p_set": 14,
+    "photon_parton_all": false,
+    "use_hard": false
+  },
+  "pdg_overrides": [
+    {
+      "key": "onMode",
+      "pdg": 221,
+      "value": "off"
+    },
+    {
+      "key": "addChannel",
+      "pdg": 221,
+      "value": "1 1.0 0 13 -13 13 -13"
+    }
+  ],
+  "phase_space": {
+    "m_hat_max": null,
+    "m_hat_min": null,
+    "p_that_max": null,
+    "p_that_min": 20.0
+  },
+  "processes": [
+    "SoftQCD:inelastic"
+  ],
+  "schema_version": "1.0",
+  "seed": 8310,
+  "seed_enabled": true,
+  "shower_mpi_tune": {
+    "mpi_b_profile": 2,
+    "mpi_pt0_ref": 2.3,
+    "space_ptmax_match": 1,
+    "time_ptmax_match": 1,
+    "tune_ee": 7,
+    "tune_pp": 14
+  },
+  "times_allow_errors": 10
+}

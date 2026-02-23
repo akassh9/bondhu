@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pythia Teammate UI Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-orb orb-a"></div>
+  <div class="bg-orb orb-b"></div>
+  <div class="bg-grid"></div>
+
+  <header class="app-header reveal">
+    <div>
+      <p class="eyebrow">AI Teammate Prototype</p>
+      <h1>Pythia Experiment Builder</h1>
+      <p class="subtitle">Structured controls + free-form research assistant on one surface.</p>
+    </div>
+    <div class="header-meta">
+      <span class="meta-chip">Mode: Simulation Design</span>
+      <span id="backendStatusChip" class="meta-chip">Backend: Checking...</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="left-col">
+      <article class="panel reveal" style="--delay: 0.03s">
+        <h2>Run Setup</h2>
+        <div class="grid two">
+          <label>
+            Events
+            <input id="events" type="number" min="1" step="100" value="10000">
+          </label>
+          <label>
+            Allowed Errors
+            <input id="timesAllowErrors" type="number" min="0" max="100" value="10">
+          </label>
+        </div>
+        <div class="grid two">
+          <label class="inline-check">
+            <input id="seedEnabled" type="checkbox" checked>
+            Use fixed seed
+          </label>
+          <label>
+            Seed
+            <input id="seed" type="number" min="1" value="8310">
+          </label>
+        </div>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.06s">
+        <h2>Beam & Collider</h2>
+        <div class="grid two">
+          <label>
+            Frame Type
+            <select id="frameType">
+              <option value="1" selected>1: Collider (use eCM)</option>
+              <option value="2">2: Back-to-back (use eA/eB)</option>
+              <option value="3">3: Fixed target</option>
+              <option value="4">4: LHEF input</option>
+              <option value="5">5: User-defined momentum</option>
+            </select>
+          </label>
+          <label>
+            eCM (GeV)
+            <input id="eCM" type="range" min="100" max="14000" step="100" value="13000">
+            <output id="eCMOut">13000</output>
+          </label>
+        </div>
+        <div class="grid two">
+          <label>
+            Beam A (PDG)
+            <select id="idA">
+              <option value="2212" selected>p (2212)</option>
+              <option value="-2212">pbar (-2212)</option>
+              <option value="11">e- (11)</option>
+              <option value="-11">e+ (-11)</option>
+              <option value="22">gamma (22)</option>
+              <option value="1000822080">Pb208 (1000822080)</option>
+            </select>
+          </label>
+          <label>
+            Beam B (PDG)
+            <select id="idB">
+              <option value="2212" selected>p (2212)</option>
+              <option value="-2212">pbar (-2212)</option>
+              <option value="11">e- (11)</option>
+              <option value="-11">e+ (-11)</option>
+              <option value="22">gamma (22)</option>
+              <option value="1000822080">Pb208 (1000822080)</option>
+            </select>
+          </label>
+        </div>
+        <div class="grid three">
+          <label>
+            eA (GeV)
+            <input id="eA" type="number" min="0" value="6500">
+          </label>
+          <label>
+            eB (GeV)
+            <input id="eB" type="number" min="0" value="6500">
+          </label>
+          <label>
+            LHEF File
+            <input id="lhef" type="text" placeholder="/path/to/events.lhe">
+          </label>
+        </div>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.09s">
+        <h2>Process Cards</h2>
+        <div class="process-grid">
+          <label class="process-card"><input data-key="HardQCD:all" type="checkbox">HardQCD:all</label>
+          <label class="process-card"><input data-key="SoftQCD:all" type="checkbox">SoftQCD:all</label>
+          <label class="process-card"><input data-key="SoftQCD:nonDiffractive" type="checkbox">SoftQCD:nonDiffractive</label>
+          <label class="process-card"><input data-key="SoftQCD:inelastic" type="checkbox">SoftQCD:inelastic</label>
+          <label class="process-card"><input data-key="WeakSingleBoson:ffbar2gmZ" type="checkbox">WeakSingleBoson:ffbar2gmZ</label>
+          <label class="process-card"><input data-key="WeakSingleBoson:ffbar2W" type="checkbox">WeakSingleBoson:ffbar2W</label>
+          <label class="process-card"><input data-key="Top:gg2ttbar" type="checkbox">Top:gg2ttbar</label>
+          <label class="process-card"><input data-key="Top:qqbar2ttbar" type="checkbox">Top:qqbar2ttbar</label>
+          <label class="process-card"><input data-key="HiggsSM:ffbar2HW" type="checkbox">HiggsSM:ffbar2HW</label>
+        </div>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.12s">
+        <h2>Phase Space</h2>
+        <div class="grid four">
+          <label>pTHatMin <input id="pTHatMin" type="number" min="0" value="20"></label>
+          <label>pTHatMax <input id="pTHatMax" type="number" min="0" placeholder="none"></label>
+          <label>mHatMin <input id="mHatMin" type="number" min="0" placeholder="none"></label>
+          <label>mHatMax <input id="mHatMax" type="number" min="0" placeholder="none"></label>
+        </div>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.15s">
+        <h2>Event Stages</h2>
+        <div class="grid three">
+          <label class="inline-check"><input id="processLevelAll" type="checkbox" checked>ProcessLevel:all</label>
+          <label class="inline-check"><input id="mpi" type="checkbox" checked>PartonLevel:MPI</label>
+          <label class="inline-check"><input id="isr" type="checkbox" checked>PartonLevel:ISR</label>
+          <label class="inline-check"><input id="fsr" type="checkbox" checked>PartonLevel:FSR</label>
+          <label class="inline-check"><input id="hadronAll" type="checkbox" checked>HadronLevel:all</label>
+          <label class="inline-check"><input id="hadronize" type="checkbox" checked>HadronLevel:Hadronize</label>
+          <label class="inline-check"><input id="decay" type="checkbox" checked>HadronLevel:Decay</label>
+        </div>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.18s">
+        <h2>Shower, MPI, Tune</h2>
+        <div class="grid four">
+          <label>SpaceShower:pTmaxMatch <input id="spacePTMaxMatch" type="number" min="0" max="3" value="1"></label>
+          <label>TimeShower:pTmaxMatch <input id="timePTMaxMatch" type="number" min="0" max="3" value="1"></label>
+          <label>MPI pT0Ref <input id="pT0Ref" type="number" min="0" step="0.01" value="2.30"></label>
+          <label>MPI bProfile <input id="bProfile" type="number" min="0" max="5" value="2"></label>
+        </div>
+        <div class="grid two">
+          <label>Tune:pp <input id="tunepp" type="number" min="0" max="30" value="14"></label>
+          <label>Tune:ee <input id="tuneee" type="number" min="0" max="30" value="7"></label>
+        </div>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.21s">
+        <h2>PDF & Photon</h2>
+        <div class="grid two">
+          <label>PDF:pSet <input id="pSet" type="number" min="1" value="14"></label>
+          <label class="inline-check"><input id="pdfLepton" type="checkbox">PDF:lepton</label>
+          <label class="inline-check"><input id="beamA2gamma" type="checkbox">PDF:beamA2gamma</label>
+          <label class="inline-check"><input id="beamB2gamma" type="checkbox">PDF:beamB2gamma</label>
+          <label class="inline-check"><input id="useHardPdf" type="checkbox">PDF:useHard</label>
+          <label class="inline-check"><input id="photonPartonAll" type="checkbox">PhotonParton:all</label>
+        </div>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.24s">
+        <h2>Particle & Decay Editor</h2>
+        <p class="small">Add structured PDG-level overrides without writing raw lines.</p>
+        <div id="overrideRows" class="override-rows"></div>
+        <button id="addOverride" class="ghost-btn" type="button">+ Add Override</button>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.27s">
+        <h2>Merging / Matching (Advanced)</h2>
+        <div class="grid two">
+          <label class="inline-check"><input id="mergingOn" type="checkbox">Enable Merging</label>
+          <label class="inline-check"><input id="jetMatchingOn" type="checkbox">Enable Jet Matching</label>
+        </div>
+        <div class="grid four">
+          <label>Merging:Process <input id="mergingProcess" type="text" value="pp>jj"></label>
+          <label>Merging:TMS <input id="mergingTMS" type="number" min="0" value="30"></label>
+          <label>Merging:nJetMax <input id="mergingNJetMax" type="number" min="0" value="2"></label>
+          <label>JetMatching:qCut <input id="jetQCut" type="number" min="0" value="30"></label>
+        </div>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.30s">
+        <h2>Expert Overrides</h2>
+        <textarea id="rawOverrides" rows="6" placeholder="Example:\n221:onMode = off\n221:addChannel = 1 1.0 0 13 -13 13 -13"></textarea>
+      </article>
+    </section>
+
+    <section class="right-col">
+      <article class="panel highlight reveal" style="--delay: 0.05s">
+        <h2>Generated PYTHIA Settings</h2>
+        <p class="small">Live preview of what the coding agent would execute.</p>
+        <pre id="commandPreview"></pre>
+        <div class="button-row">
+          <button id="copyPreview" type="button">Copy Preview</button>
+          <button id="simulateRun" type="button">Run on Backend</button>
+        </div>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.11s">
+        <h2>Run Output</h2>
+        <div id="runSummary" class="summary-box">
+          Waiting for backend run...
+        </div>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.15s">
+        <h2>Approval Gate</h2>
+        <div id="approvalStatus" class="summary-box">
+          No approved spec yet. Click "Approve Current Spec" before running.
+        </div>
+        <pre id="specDiff" class="diff-box">No approved spec yet.</pre>
+        <div class="button-row">
+          <button id="approveSpec" class="ghost-btn" type="button">Approve Current Spec</button>
+        </div>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.19s">
+        <h2>Run History</h2>
+        <div class="button-row">
+          <button id="refreshHistory" class="ghost-btn" type="button">Refresh History</button>
+        </div>
+        <div id="runHistory" class="run-history">No runs loaded yet.</div>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.23s">
+        <h2>Papers for Replication</h2>
+        <input id="paperUpload" type="file" multiple>
+        <ul id="paperList" class="paper-list"></ul>
+      </article>
+
+      <article class="panel reveal" style="--delay: 0.27s">
+        <h2>Research Chat</h2>
+        <div id="chatFeed" class="chat-feed">
+          <div class="msg ai">You can ask for next steps, uncertainty checks, or replication plans.</div>
+        </div>
+        <div class="chat-input-row">
+          <input id="chatInput" type="text" placeholder="Ask the teammate...">
+          <button id="sendChat" type="button">Send</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <template id="overrideRowTemplate">
+    <div class="override-row">
+      <input class="ov-pdg" type="number" placeholder="PDG (e.g. 221)">
+      <select class="ov-key">
+        <option value="onMode">onMode</option>
+        <option value="onIfAny">onIfAny</option>
+        <option value="addChannel">addChannel</option>
+        <option value="mayDecay">mayDecay</option>
+        <option value="m0">m0</option>
+        <option value="mMin">mMin</option>
+        <option value="mMax">mMax</option>
+        <option value="mWidth">mWidth</option>
+      </select>
+      <input class="ov-value" type="text" placeholder="value">
+      <button class="remove-ov" type="button">Remove</button>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

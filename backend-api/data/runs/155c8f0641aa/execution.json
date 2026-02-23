@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/Users/akash009/pythia/pythia8310/backend-api/bin/pythia_runner",
+    "/Users/akash009/pythia/pythia8310/backend-api/data/runs/155c8f0641aa/run.cmnd",
+    "/Users/akash009/pythia/pythia8310/backend-api/data/runs/155c8f0641aa/event_summary.json"
+  ],
+  "cwd": "/Users/akash009/pythia/pythia8310",
+  "started_at": "2026-02-23T01:05:41.053634+00:00",
+  "timeout_seconds": 60
+}

@@ -1,0 +1,414 @@
+{
+  "$defs": {
+    "BeamSpec": {
+      "properties": {
+        "e_a": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 6500.0,
+          "title": "E A"
+        },
+        "e_b": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 6500.0,
+          "title": "E B"
+        },
+        "e_cm": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 13000.0,
+          "title": "E Cm"
+        },
+        "frame_type": {
+          "default": 1,
+          "enum": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "title": "Frame Type",
+          "type": "integer"
+        },
+        "id_a": {
+          "default": 2212,
+          "title": "Id A",
+          "type": "integer"
+        },
+        "id_b": {
+          "default": 2212,
+          "title": "Id B",
+          "type": "integer"
+        },
+        "lhef": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Lhef"
+        }
+      },
+      "title": "BeamSpec",
+      "type": "object"
+    },
+    "EventStagesSpec": {
+      "properties": {
+        "decay": {
+          "default": true,
+          "title": "Decay",
+          "type": "boolean"
+        },
+        "fsr": {
+          "default": true,
+          "title": "Fsr",
+          "type": "boolean"
+        },
+        "hadron_all": {
+          "default": true,
+          "title": "Hadron All",
+          "type": "boolean"
+        },
+        "hadronize": {
+          "default": true,
+          "title": "Hadronize",
+          "type": "boolean"
+        },
+        "isr": {
+          "default": true,
+          "title": "Isr",
+          "type": "boolean"
+        },
+        "mpi": {
+          "default": true,
+          "title": "Mpi",
+          "type": "boolean"
+        },
+        "process_level_all": {
+          "default": true,
+          "title": "Process Level All",
+          "type": "boolean"
+        }
+      },
+      "title": "EventStagesSpec",
+      "type": "object"
+    },
+    "JetMatchingSpec": {
+      "properties": {
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "q_cut": {
+          "default": 30.0,
+          "minimum": 0,
+          "title": "Q Cut",
+          "type": "number"
+        }
+      },
+      "title": "JetMatchingSpec",
+      "type": "object"
+    },
+    "MergingSpec": {
+      "properties": {
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "n_jet_max": {
+          "default": 2,
+          "minimum": 0,
+          "title": "N Jet Max",
+          "type": "integer"
+        },
+        "process": {
+          "default": "pp>jj",
+          "title": "Process",
+          "type": "string"
+        },
+        "tms": {
+          "default": 30.0,
+          "minimum": 0,
+          "title": "Tms",
+          "type": "number"
+        }
+      },
+      "title": "MergingSpec",
+      "type": "object"
+    },
+    "PdfPhotonSpec": {
+      "properties": {
+        "beam_a2gamma": {
+          "default": false,
+          "title": "Beam A2Gamma",
+          "type": "boolean"
+        },
+        "beam_b2gamma": {
+          "default": false,
+          "title": "Beam B2Gamma",
+          "type": "boolean"
+        },
+        "lepton": {
+          "default": false,
+          "title": "Lepton",
+          "type": "boolean"
+        },
+        "p_set": {
+          "default": 14,
+          "minimum": 1,
+          "title": "P Set",
+          "type": "integer"
+        },
+        "photon_parton_all": {
+          "default": false,
+          "title": "Photon Parton All",
+          "type": "boolean"
+        },
+        "use_hard": {
+          "default": false,
+          "title": "Use Hard",
+          "type": "boolean"
+        }
+      },
+      "title": "PdfPhotonSpec",
+      "type": "object"
+    },
+    "PdgOverride": {
+      "properties": {
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "pdg": {
+          "title": "Pdg",
+          "type": "integer"
+        },
+        "value": {
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "pdg",
+        "key",
+        "value"
+      ],
+      "title": "PdgOverride",
+      "type": "object"
+    },
+    "PhaseSpaceSpec": {
+      "properties": {
+        "m_hat_max": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "M Hat Max"
+        },
+        "m_hat_min": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "M Hat Min"
+        },
+        "p_that_max": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "P That Max"
+        },
+        "p_that_min": {
+          "default": 20.0,
+          "minimum": 0,
+          "title": "P That Min",
+          "type": "number"
+        }
+      },
+      "title": "PhaseSpaceSpec",
+      "type": "object"
+    },
+    "ShowerMpiTuneSpec": {
+      "properties": {
+        "mpi_b_profile": {
+          "default": 2,
+          "maximum": 5,
+          "minimum": 0,
+          "title": "Mpi B Profile",
+          "type": "integer"
+        },
+        "mpi_pt0_ref": {
+          "default": 2.3,
+          "minimum": 0,
+          "title": "Mpi Pt0 Ref",
+          "type": "number"
+        },
+        "space_ptmax_match": {
+          "default": 1,
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Space Ptmax Match",
+          "type": "integer"
+        },
+        "time_ptmax_match": {
+          "default": 1,
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Time Ptmax Match",
+          "type": "integer"
+        },
+        "tune_ee": {
+          "default": 7,
+          "maximum": 30,
+          "minimum": 0,
+          "title": "Tune Ee",
+          "type": "integer"
+        },
+        "tune_pp": {
+          "default": 14,
+          "maximum": 30,
+          "minimum": 0,
+          "title": "Tune Pp",
+          "type": "integer"
+        }
+      },
+      "title": "ShowerMpiTuneSpec",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "beam": {
+      "$ref": "#/$defs/BeamSpec"
+    },
+    "event_stages": {
+      "$ref": "#/$defs/EventStagesSpec"
+    },
+    "events": {
+      "default": 10000,
+      "maximum": 1000000,
+      "minimum": 1,
+      "title": "Events",
+      "type": "integer"
+    },
+    "expert_overrides": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Expert Overrides",
+      "type": "array"
+    },
+    "jet_matching": {
+      "$ref": "#/$defs/JetMatchingSpec"
+    },
+    "merging": {
+      "$ref": "#/$defs/MergingSpec"
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Name"
+    },
+    "pdf_photon": {
+      "$ref": "#/$defs/PdfPhotonSpec"
+    },
+    "pdg_overrides": {
+      "items": {
+        "$ref": "#/$defs/PdgOverride"
+      },
+      "title": "Pdg Overrides",
+      "type": "array"
+    },
+    "phase_space": {
+      "$ref": "#/$defs/PhaseSpaceSpec"
+    },
+    "processes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Processes",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "seed": {
+      "default": 8310,
+      "maximum": 900000000,
+      "minimum": 1,
+      "title": "Seed",
+      "type": "integer"
+    },
+    "seed_enabled": {
+      "default": true,
+      "title": "Seed Enabled",
+      "type": "boolean"
+    },
+    "shower_mpi_tune": {
+      "$ref": "#/$defs/ShowerMpiTuneSpec"
+    },
+    "times_allow_errors": {
+      "default": 10,
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Times Allow Errors",
+      "type": "integer"
+    }
+  },
+  "title": "RunSpec",
+  "type": "object"
+}
