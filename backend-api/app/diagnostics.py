@@ -74,6 +74,53 @@ def _safe_int(value: Any, default: int = 0) -> int:
         return default
 
 
+def _extract_output_text(response: Any) -> str:
+    text = getattr(response, "output_text", "")
+    if text:
+        return text
+
+    payload = response.model_dump() if hasattr(response, "model_dump") else {}
+    output = payload.get("output", []) if isinstance(payload, dict) else []
+    chunks: list[str] = []
+    for item in output:
+        if item.get("type") != "message":
+            continue
+        for content in item.get("content", []):
+            if content.get("type") == "output_text" and content.get("text"):
+                chunks.append(content["text"])
+    return "\n".join(chunks)
+
+
+def _compact_conversation(messages: list[dict[str, Any]], max_chars: int = 16_000) -> tuple[list[dict[str, Any]], bool]:
+    compact: list[dict[str, Any]] = []
+    total = 0
+    truncated = False
+
+    for msg in messages:
+        role = str(msg.get("role") or "unknown")
+        content = str(msg.get("content") or "").strip()
+        created_at = msg.get("created_at") or msg.get("at")
+
+        entry = {
+            "role": role,
+            "content": content,
+            "created_at": created_at,
+        }
+
+        projected = total + len(role) + len(content) + len(str(created_at or ""))
+        if projected > max_chars:
+            truncated = True
+            if not compact:
+                entry["content"] = content[:max_chars]
+                compact.append(entry)
+            break
+
+        compact.append(entry)
+        total = projected
+
+    return compact, truncated
+
+
 def build_teammate_summary(
     spec: dict[str, Any],
     event_summary: dict[str, Any] | None,
@@ -209,24 +256,98 @@ def maybe_generate_llm_summary(
             },
         )
 
-        text = getattr(response, "output_text", "")
-        if not text:
-            payload = response.model_dump() if hasattr(response, "model_dump") else {}
-            output = payload.get("output", []) if isinstance(payload, dict) else []
-            chunks: list[str] = []
-            for item in output:
-                if item.get("type") != "message":
-                    continue
-                for content in item.get("content", []):
-                    if content.get("type") == "output_text" and content.get("text"):
-                        chunks.append(content["text"])
-            text = "\n".join(chunks)
-
+        text = _extract_output_text(response)
         if not text:
             return None
 
         parsed = json.loads(text)
         parsed["model"] = model
+        return parsed
+    except Exception:
+        return None
+
+
+def maybe_generate_workflow_results_review(
+    *,
+    conversation_messages: list[dict[str, Any]],
+    run_spec: dict[str, Any],
+    simulation_status: dict[str, Any],
+    workflow_graph: dict[str, Any],
+    workflow_node_results: list[dict[str, Any]],
+    workflow_summary: dict[str, Any],
+) -> dict[str, Any] | None:
+    enabled = os.getenv("PYTHIA_ENABLE_LLM_RESULTS_REVIEW", "1").strip().lower() in {"1", "true", "yes"}
+    if not enabled:
+        return None
+
+    api_key = os.getenv("OPENAI_API_KEY", "").strip()
+    if not api_key or OpenAI is None:
+        return None
+
+    model = os.getenv("PYTHIA_LLM_MODEL", "gpt-5-codex")
+    compact_messages, was_truncated = _compact_conversation(conversation_messages)
+
+    try:
+        client = OpenAI(api_key=api_key)
+        response = client.responses.create(
+            model=model,
+            instructions=(
+                "You are a simulation review teammate. "
+                "Use chat context to infer likely expectations, compare with observed workflow/run outputs, "
+                "and identify what likely went right or wrong. "
+                "Be explicit about uncertainty and avoid overclaiming."
+            ),
+            input=(
+                "Conversation history (all captured messages; may be truncated only for token safety):\n"
+                + json.dumps(compact_messages, indent=2, sort_keys=True)
+                + "\n\nRunSpec JSON used for the run:\n"
+                + json.dumps(run_spec, indent=2, sort_keys=True)
+                + "\n\nSimulation run final status JSON:\n"
+                + json.dumps(simulation_status, indent=2, sort_keys=True)
+                + "\n\nWorkflow graph JSON:\n"
+                + json.dumps(workflow_graph, indent=2, sort_keys=True)
+                + "\n\nWorkflow node outputs JSON:\n"
+                + json.dumps(workflow_node_results, indent=2, sort_keys=True)
+                + "\n\nWorkflow summary JSON:\n"
+                + json.dumps(workflow_summary, indent=2, sort_keys=True)
+            ),
+            text={
+                "format": {
+                    "type": "json_schema",
+                    "name": "workflow_results_review",
+                    "strict": True,
+                    "schema": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "properties": {
+                            "overview": {"type": "string"},
+                            "expected": {"type": "array", "items": {"type": "string"}},
+                            "observed": {"type": "array", "items": {"type": "string"}},
+                            "went_right": {"type": "array", "items": {"type": "string"}},
+                            "went_wrong_or_risky": {"type": "array", "items": {"type": "string"}},
+                            "next_steps": {"type": "array", "items": {"type": "string"}},
+                        },
+                        "required": [
+                            "overview",
+                            "expected",
+                            "observed",
+                            "went_right",
+                            "went_wrong_or_risky",
+                            "next_steps",
+                        ],
+                    },
+                }
+            },
+        )
+
+        text = _extract_output_text(response)
+        if not text:
+            return None
+
+        parsed = json.loads(text)
+        parsed["model"] = model
+        parsed["conversation_message_count"] = len(compact_messages)
+        parsed["conversation_truncated"] = was_truncated
         return parsed
     except Exception:
         return None

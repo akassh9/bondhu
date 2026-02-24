@@ -9,6 +9,7 @@ FastAPI backend for typed PYTHIA run orchestration.
 - Deterministic compiler `RunSpec -> run.cmnd` (`app/compiler.py`)
 - Local queue + worker with persisted provenance (`app/run_service.py`, `app/store.py`)
 - Chat orchestration using OpenAI Responses API (`app/chat_service.py`)
+- v2 agentic thread/settings/workflow orchestration (`app/v2/`)
 - Endpoints for validate/compile/create/enqueue/status/artifacts
 - Real execution using a tiny C++ runner (`runner/pythia_runner.cc`)
 
@@ -64,6 +65,17 @@ uvicorn app.main:app --app-dir backend-api --host 127.0.0.1 --port 8000
 - `POST /chat/sessions/{session_id}/message`
 - `POST /chat/sessions/{session_id}/apply`
 - `POST /chat/sessions/{session_id}/run`
+- `POST /v2/threads`
+- `GET /v2/threads/{thread_id}`
+- `POST /v2/threads/{thread_id}/messages`
+- `GET /v2/settings/{setting_id}`
+- `POST /v2/settings/{setting_id}/lock`
+- `POST /v2/workflows`
+- `GET /v2/workflows/{workflow_id}`
+- `POST /v2/workflows/{workflow_id}/validate`
+- `POST /v2/workflows/{workflow_id}/runs`
+- `GET /v2/workflow-runs/{workflow_run_id}`
+- `GET /v2/workflow-runs/{workflow_run_id}/artifacts/{name}`
 
 ## LLM configuration
 
@@ -73,11 +85,22 @@ Set these before starting the API:
 export OPENAI_API_KEY=\"your_key_here\"
 export PYTHIA_LLM_MODEL=\"gpt-5-codex\"   # optional, default gpt-5-codex
 export PYTHIA_ENABLE_LLM_RUN_SUMMARY=\"1\"   # optional, default 1
+export PYTHIA_API_MODE=\"dual\"              # optional: v1, v2, dual
+export PYTHIA_AGENT_MODEL=\"gpt-5-codex\"    # optional override for v2 agent runtime
+export PYTHIA_SQLITE_PATH=\"/abs/path/pythia_v2.sqlite3\"  # optional override
 ```
 
 System prompt source for chat orchestration:
 
 - `backend-api/prompts/chat_system.md`
+
+## v2 migration utility
+
+Import legacy JSON chat sessions into SQLite:
+
+```bash
+python backend-api/scripts/migrate_chat_sessions_to_sqlite.py
+```
 
 ## Schema export
 

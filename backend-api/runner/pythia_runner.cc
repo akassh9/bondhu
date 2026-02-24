@@ -8,13 +8,15 @@
 using namespace Pythia8;
 
 int main(int argc, char* argv[]) {
-  if (argc != 3) {
-    std::cerr << "Usage: pythia_runner <run.cmnd> <event_summary.json>\n";
+  if (argc != 3 && argc != 4) {
+    std::cerr << "Usage: pythia_runner <run.cmnd> <event_summary.json> [tracked_particles.csv]\n";
     return 2;
   }
 
   const std::string cmndPath = argv[1];
   const std::string summaryPath = argv[2];
+  const bool writeTracks = (argc == 4);
+  const std::string tracksPath = writeTracks ? argv[3] : "";
 
   std::ifstream cmndIn(cmndPath);
   if (!cmndIn.good()) {
@@ -38,6 +40,15 @@ int main(int argc, char* argv[]) {
   int failures = 0;
   int abortCounter = 0;
   bool abortedByErrors = false;
+  std::ofstream tracksOut;
+  if (writeTracks) {
+    tracksOut.open(tracksPath);
+    if (!tracksOut.good()) {
+      std::cerr << "Failed to write track output file: " << tracksPath << "\n";
+      return 5;
+    }
+    tracksOut << "event_id,particle_index,pdg,charge,pt,eta,phi,mass,energy,is_final\n";
+  }
 
   for (int iEvent = 0; iEvent < nEvent; ++iEvent) {
     ++attempted;
@@ -52,6 +63,15 @@ int main(int argc, char* argv[]) {
     }
 
     ++accepted;
+    if (writeTracks) {
+      for (int i = 0; i < pythia.event.size(); ++i) {
+        const auto& p = pythia.event[i];
+        if (!p.isFinal()) continue;
+        tracksOut << iEvent << "," << i << "," << p.id() << "," << p.charge() << ","
+                  << p.pT() << "," << p.eta() << "," << p.phi() << "," << p.m() << ","
+                  << p.e() << ",1\n";
+      }
+    }
   }
 
   pythia.stat();
@@ -59,7 +79,7 @@ int main(int argc, char* argv[]) {
   std::ofstream out(summaryPath);
   if (!out.good()) {
     std::cerr << "Failed to write summary file: " << summaryPath << "\n";
-    return 5;
+    return 7;
   }
 
   out << "{\n";
@@ -70,6 +90,7 @@ int main(int argc, char* argv[]) {
   out << "  \"aborted_by_errors\": " << (abortedByErrors ? "true" : "false") << "\n";
   out << "}\n";
   out.close();
+  if (writeTracks) tracksOut.close();
 
   return abortedByErrors ? 6 : 0;
 }

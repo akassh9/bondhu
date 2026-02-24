@@ -1,0 +1,52 @@
+{
+  "created_at": "2026-02-23T16:58:52.728225+00:00",
+  "diagnostics": {
+    "top_errors": [],
+    "top_warnings": [],
+    "total_error_messages": 0,
+    "total_warning_messages": 0
+  },
+  "error": "exit code 4",
+  "exit_code": 4,
+  "finished_at": "2026-02-23T16:58:52.938816+00:00",
+  "llm_run_summary": {
+    "model": "gpt-5.2-codex",
+    "next_steps": [
+      "Check runner logs/STDERR for exit code 4 root cause (crash, misconfiguration, missing data files)",
+      "Verify generator initialization and process configuration for SoftQCD:inelastic under current beam/PDF settings",
+      "Rerun a short test (e.g., 100 events) after fixing to confirm nonzero acceptance before scaling up",
+      "Optionally compare a second seed once acceptance is restored to confirm stability"
+    ],
+    "risks": [
+      "Zero acceptance/100% failures indicates generation is not producing usable events",
+      "No error/warning diagnostics reported, so root cause may be external to physics settings (runtime/config/IO)"
+    ],
+    "tldr": "Minimum-bias / underlying-event QCD run attempted 5000 events, accepted 0, failed 5000; runner exit code 4. Non-viable until failure source identified.",
+    "viability": "non_viable"
+  },
+  "message": "Runner exited with non-zero status",
+  "run_id": "a896a7cb5ce0",
+  "state": "FAILED",
+  "teammate_summary": {
+    "flags": [
+      "Runner exit code is 4.",
+      "No events accepted.",
+      "Failed events fraction is 100.00%."
+    ],
+    "inferred_intent": "Minimum-bias / underlying-event QCD study",
+    "key_stats": {
+      "acceptance": 0.0,
+      "accepted_events": 0,
+      "attempted_events": 5000,
+      "error_messages": 0,
+      "failed_events": 5000,
+      "warning_messages": 0
+    },
+    "suggestions": [
+      "Compare at least two nearby seeds to confirm stability of key yields."
+    ],
+    "tldr": "Minimum-bias / underlying-event QCD study: attempted 5000 events, accepted 0, failed 5000. Viability assessment: non_viable.",
+    "viability": "non_viable"
+  },
+  "updated_at": "2026-02-23T16:58:57.376530+00:00"
+}

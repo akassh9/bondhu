@@ -16,6 +16,24 @@ Then open:
 - http://localhost:8765
 - http://localhost:8765/chat/
 
+## New v2 React app
+
+The new agentic chat -> settings -> workflow -> results UI lives in:
+
+- `/Users/akash009/pythia/pythia8310/frontend-app`
+
+Run with:
+
+```bash
+cd /Users/akash009/pythia/pythia8310/frontend-app
+npm install
+npm run dev
+```
+
+Then open:
+
+- http://127.0.0.1:5173/app/chat
+
 ## Connect to backend API
 
 Start the API from repo root in a second terminal:

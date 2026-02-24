@@ -1,0 +1,51 @@
+{
+  "created_at": "2026-02-23T16:36:09.132709+00:00",
+  "diagnostics": {
+    "top_errors": [],
+    "top_warnings": [],
+    "total_error_messages": 0,
+    "total_warning_messages": 0
+  },
+  "error": "exit code -11",
+  "exit_code": -11,
+  "finished_at": "2026-02-23T16:36:09.381288+00:00",
+  "llm_run_summary": {
+    "model": "gpt-5.2-codex",
+    "next_steps": [
+      "Re-run with a different seed to check reproducibility of the crash",
+      "Try reducing event stages (e.g., disable hadronization/FSR/ISR/MPI) to isolate the crashing stage",
+      "Check generator build/environment and any recent changes; verify compatibility of tune/settings for SoftQCD"
+    ],
+    "risks": [
+      "Generator crash/segfault (exit -11) leading to 100% failed events",
+      "No accepted events \u2192 unusable statistics"
+    ],
+    "tldr": "Attempted 5000 SoftQCD inelastic events; 0 accepted, 5000 failed. Runner exited -11. Non-viable run.",
+    "viability": "non_viable"
+  },
+  "message": "Runner exited with non-zero status",
+  "run_id": "74330dc81f1d",
+  "state": "FAILED",
+  "teammate_summary": {
+    "flags": [
+      "Runner exit code is -11.",
+      "No events accepted.",
+      "Failed events fraction is 100.00%."
+    ],
+    "inferred_intent": "Minimum-bias / underlying-event QCD study",
+    "key_stats": {
+      "acceptance": 0.0,
+      "accepted_events": 0,
+      "attempted_events": 5000,
+      "error_messages": 0,
+      "failed_events": 5000,
+      "warning_messages": 0
+    },
+    "suggestions": [
+      "Compare at least two nearby seeds to confirm stability of key yields."
+    ],
+    "tldr": "Minimum-bias / underlying-event QCD study: attempted 5000 events, accepted 0, failed 5000. Viability assessment: non_viable.",
+    "viability": "non_viable"
+  },
+  "updated_at": "2026-02-23T16:36:13.749799+00:00"
+}

@@ -1,0 +1,14 @@
+{
+  "model": "gpt-5.2-codex",
+  "next_steps": [
+    "Re-run with a different seed to check reproducibility of the crash",
+    "Try reducing event stages (e.g., disable hadronization/FSR/ISR/MPI) to isolate the crashing stage",
+    "Check generator build/environment and any recent changes; verify compatibility of tune/settings for SoftQCD"
+  ],
+  "risks": [
+    "Generator crash/segfault (exit -11) leading to 100% failed events",
+    "No accepted events \u2192 unusable statistics"
+  ],
+  "tldr": "Attempted 5000 SoftQCD inelastic events; 0 accepted, 5000 failed. Runner exited -11. Non-viable run.",
+  "viability": "non_viable"
+}

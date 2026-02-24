@@ -1,0 +1,12 @@
+{
+  "model": "gpt-5-codex",
+  "next_steps": [
+    "Inspect MPI warning details to ensure retuning is acceptable.",
+    "Optionally rerun with larger statistics or varied seeds to confirm stability."
+  ],
+  "risks": [
+    "MultipartonInteractions::init: maximum increased warning indicates MPI cutoff retuned automatically."
+  ],
+  "tldr": "Run viable; only warnings are MPI max adjustments.",
+  "viability": "good"
+}

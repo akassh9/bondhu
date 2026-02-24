@@ -1,0 +1,15 @@
+{
+  "model": "gpt-5.2-codex",
+  "next_steps": [
+    "Check runner logs/STDERR for exit code 4 root cause (crash, misconfiguration, missing data files)",
+    "Verify generator initialization and process configuration for SoftQCD:inelastic under current beam/PDF settings",
+    "Rerun a short test (e.g., 100 events) after fixing to confirm nonzero acceptance before scaling up",
+    "Optionally compare a second seed once acceptance is restored to confirm stability"
+  ],
+  "risks": [
+    "Zero acceptance/100% failures indicates generation is not producing usable events",
+    "No error/warning diagnostics reported, so root cause may be external to physics settings (runtime/config/IO)"
+  ],
+  "tldr": "Minimum-bias / underlying-event QCD run attempted 5000 events, accepted 0, failed 5000; runner exit code 4. Non-viable until failure source identified.",
+  "viability": "non_viable"
+}

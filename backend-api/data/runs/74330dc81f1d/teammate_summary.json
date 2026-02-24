@@ -1,0 +1,21 @@
+{
+  "flags": [
+    "Runner exit code is -11.",
+    "No events accepted.",
+    "Failed events fraction is 100.00%."
+  ],
+  "inferred_intent": "Minimum-bias / underlying-event QCD study",
+  "key_stats": {
+    "acceptance": 0.0,
+    "accepted_events": 0,
+    "attempted_events": 5000,
+    "error_messages": 0,
+    "failed_events": 5000,
+    "warning_messages": 0
+  },
+  "suggestions": [
+    "Compare at least two nearby seeds to confirm stability of key yields."
+  ],
+  "tldr": "Minimum-bias / underlying-event QCD study: attempted 5000 events, accepted 0, failed 5000. Viability assessment: non_viable.",
+  "viability": "non_viable"
+}

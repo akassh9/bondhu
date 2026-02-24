@@ -72,6 +72,7 @@ class RunService:
         run_dir = self.store.run_dir(run_id)
         cmnd_path = run_dir / "run.cmnd"
         summary_path = run_dir / "event_summary.json"
+        tracks_path = run_dir / "tracked_particles.csv"
 
         self.store.update_status(run_id, state="RUNNING", message="Running PYTHIA job", error=None)
 
@@ -89,7 +90,7 @@ class RunService:
         spec = self.store.get_spec(run_id)
         timeout_s = self._estimate_timeout_seconds(spec)
 
-        cmd = [str(self._runner_bin), str(cmnd_path), str(summary_path)]
+        cmd = [str(self._runner_bin), str(cmnd_path), str(summary_path), str(tracks_path)]
         self.store.write_json_artifact(
             run_id,
             "execution.json",
@@ -142,6 +143,8 @@ class RunService:
                 summary = None
             if summary is not None:
                 extra["event_summary"] = summary
+        if tracks_path.exists():
+            extra["tracked_particles_artifact"] = tracks_path.name
 
         diagnostics = parse_message_statistics(completed.stdout)
         extra["diagnostics"] = diagnostics

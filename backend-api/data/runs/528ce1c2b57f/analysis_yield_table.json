@@ -1,0 +1,13 @@
+{
+  "acceptance_vs_attempted": 1.0,
+  "acceptance_vs_requested": 1.0,
+  "accepted_events": 20000,
+  "attempted_events": 20000,
+  "failed_events": 0,
+  "generated_at": "2026-02-23T19:08:36.132193+00:00",
+  "notes": [
+    "Auto-generated MVP analysis from run-level counters.",
+    "No detector/reco-level selection applied in this plugin."
+  ],
+  "requested_events": 20000
+}

@@ -1,0 +1,16 @@
+{
+  "model": "gpt-5-codex",
+  "next_steps": [
+    "Inspect detailed log slices for BeamRemnants failures and consider adjusting MPI/beam-remnant parameters.",
+    "Review string fragmentation settings or switch tune to reduce junction-related recoveries.",
+    "Check shower weight distributions; if pathological, retune pT ordering or apply weight capping.",
+    "Validate key observables with an alternate seed or reduced timesAllowErrors to ensure robustness."
+  ],
+  "risks": [
+    "Repeated BeamRemnants::setKinematics failures hint at unstable beam-remnant reconstruction.",
+    "String fragmentation stalls and junction convergence issues could bias hadronization observables.",
+    "Space-shower weights above unity and energy-momentum mismatches indicate stressed shower tuning."
+  ],
+  "tldr": "20000 SoftQCD events accepted but frequent beam remnant and fragmentation recoveries plus elevated shower warnings; treat results with caution.",
+  "viability": "caution"
+}

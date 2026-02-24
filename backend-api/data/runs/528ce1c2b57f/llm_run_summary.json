@@ -1,0 +1,15 @@
+{
+  "model": "gpt-5-codex",
+  "next_steps": [
+    "Review BeamRemnants and fragmentation error logs to isolate phase-space regions causing retries.",
+    "Test alternative soft-QCD/PYTHIA tune or adjust MPI/space-shower parameters to reduce weight>1 occurrences.",
+    "Rerun short jobs with neighboring seeds to see if failures persist or are seed-specific."
+  ],
+  "risks": [
+    "BeamRemnants::setKinematics repeatedly failed, indicating problematic remnant handling for soft-QCD setup.",
+    "StringFragmentation join/junction warnings risk biasing hadronization and multiplicity observables.",
+    "Space-shower weight>1 and momentum mismatch warnings suggest shower tuning may be inconsistent with MPI settings."
+  ],
+  "tldr": "Run produced 20k/20k events but frequent BeamRemnants, hadronLevel, and string fragmentation failures show unstable soft-QCD modeling.",
+  "viability": "caution"
+}

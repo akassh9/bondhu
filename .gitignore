@@ -1,0 +1,6 @@
+backend-api/data/
+tmp/
+*.o
+*.a
+*.so
+.DS_Store

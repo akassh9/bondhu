@@ -1,0 +1,73 @@
+{
+  "analysis": {
+    "acceptance_vs_attempted": 1.0,
+    "accepted_events": 50,
+    "artifacts": [
+      "analysis_yield_table.json",
+      "analysis_cutflow.csv",
+      "analysis_histogram.csv",
+      "analysis_report.md"
+    ],
+    "failed_events": 0,
+    "generated_at": "2026-02-23T19:04:12.544274+00:00",
+    "plugin": "basic_mvp_analysis"
+  },
+  "created_at": "2026-02-23T19:04:07.968548+00:00",
+  "diagnostics": {
+    "top_errors": [],
+    "top_warnings": [
+      {
+        "count": 3,
+        "message": "MultipartonInteractions::init: maximum increased"
+      }
+    ],
+    "total_error_messages": 0,
+    "total_warning_messages": 3
+  },
+  "error": null,
+  "event_summary": {
+    "abort_limit": 10,
+    "aborted_by_errors": false,
+    "accepted_events": 50,
+    "attempted_events": 50,
+    "failed_events": 0
+  },
+  "exit_code": 0,
+  "finished_at": "2026-02-23T19:04:10.027235+00:00",
+  "llm_run_summary": {
+    "model": "gpt-5-codex",
+    "next_steps": [
+      "Inspect MPI warning details to ensure retuning is acceptable.",
+      "Optionally rerun with larger statistics or varied seeds to confirm stability."
+    ],
+    "risks": [
+      "MultipartonInteractions::init: maximum increased warning indicates MPI cutoff retuned automatically."
+    ],
+    "tldr": "Run viable; only warnings are MPI max adjustments.",
+    "viability": "good"
+  },
+  "message": "Run completed",
+  "run_id": "082e90218d05",
+  "state": "SUCCEEDED",
+  "teammate_summary": {
+    "flags": [],
+    "inferred_intent": "Minimum-bias / underlying-event QCD study",
+    "key_stats": {
+      "acceptance": 1.0,
+      "accepted_events": 50,
+      "attempted_events": 50,
+      "error_messages": 0,
+      "failed_events": 0,
+      "warning_messages": 3
+    },
+    "suggestions": [
+      "Review warning categories; repeated shower or hadronization warnings can bias tails.",
+      "Run appears numerically stable; proceed to larger statistics or analysis plugins.",
+      "Compare at least two nearby seeds to confirm stability of key yields."
+    ],
+    "tldr": "Minimum-bias / underlying-event QCD study: attempted 50 events, accepted 50, failed 0. Viability assessment: good.",
+    "viability": "good"
+  },
+  "tracked_particles_artifact": "tracked_particles.csv",
+  "updated_at": "2026-02-23T19:04:12.544573+00:00"
+}

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/Users/akash009/pythia/pythia8310/backend-api/bin/pythia_runner",
+    "/Users/akash009/pythia/pythia8310/backend-api/data/runs/f7bc114cb381/run.cmnd",
+    "/Users/akash009/pythia/pythia8310/backend-api/data/runs/f7bc114cb381/event_summary.json",
+    "/Users/akash009/pythia/pythia8310/backend-api/data/runs/f7bc114cb381/tracked_particles.csv"
+  ],
+  "cwd": "/Users/akash009/pythia/pythia8310",
+  "started_at": "2026-02-23T18:55:34.446461+00:00",
+  "timeout_seconds": 60
+}

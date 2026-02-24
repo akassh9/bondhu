@@ -1,5 +1,5 @@
 # PYTHIA configuration file.
-# Generated on Sun Feb 22 17:19:22 CST 2026 with the user supplied options:
+# Generated on Mon Feb 23 10:22:32 CST 2026 with the user supplied options:
 
 # Install directory prefixes.
 PREFIX_BIN=/Users/akash009/pythia/pythia8310/bin
